@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
-
 import com.spring.spring28ex.dto.ContentDto;
 
 public class ContentDao {
@@ -33,14 +32,14 @@ public class ContentDao {
 	}
 	
 	@Override
-	public  void writeDao(final String mWriter, final String mContent){
+	public void writeDao(final String mWriter, final String mContent){
 		
 		this.template.update(new PreparedStatementCreator() {
 			
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				// TODO Auto-generated method stub
-				String query = "insert into board (mId, mWriter, mContent) values (board_seq)";
+				String query = "insert into board (mId, mWriter, mContent) values (board_seq.nextval, ?, ?)";
 				PreparedStatement pstmt = con.prepareStatement(query);
 				pstmt.setString(1, mWriter);
 				pstmt.setString(2, mContent);
